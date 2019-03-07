@@ -25,8 +25,8 @@ class LinearRegression:
 
     def train_gradient_descent(self, X, y, learning_rate=0.01, n_iters=100):
         """Trains a linear regression model using gradient descent"""
-        n_samples, n_feartures = X.shape
-        self.weights = np.zeros(shape=(n_feartures, 1))
+        n_samples, n_features = X.shape
+        self.weights = np.zeros(shape=(n_features, 1))
         self.bias = 0
         costs = []
 
@@ -64,42 +64,39 @@ class LinearRegression:
         return np.dot(X, self.weights) + self.bias
 
 
-# regressor = LinearRegression()
-# w_trained, b_trained, costs = regressor.train_gradient_descent(
-#     X_train, y_train, learning_rate=0.005, n_iters=600)
+n_samples, _ = X_train.shape
+n_samples_test, _ = X_test.shape
+regressor = LinearRegression()
+w_trained, b_trained, costs = regressor.train_gradient_descent(
+    X_train, y_train, learning_rate=1e-3, n_iters=100000)
+
+y_p_train = regressor.predict(X_train)
+y_p_test = regressor.predict(X_test)
+
+error_train = (1 / n_samples) * np.sum((y_p_train - y_train) ** 2)
+error_test = (1 / n_samples_test) * np.sum((y_p_test - y_test) ** 2)
+print(f"Error on training set: {error_train:.4f}")
+print(f"Error on test set: {np.round(error_test)}")
 
 
-# n_samples, _ = X_train.shape
-# n_samples_test, _ = X_test.shape
+# To compute the parameters using the normal equation, we add a bias value of 1 to each input example
+# X_b_train = np.c_[np.ones((n_samples)), X_train]
+# X_b_test = np.c_[np.ones((n_samples_test)), X_test]
 
-# y_p_train = regressor.predict(X_train)
-# y_p_test = regressor.predict(X_test)
+# reg_normal = LinearRegression()
+# w_trained = reg_normal.train_normal_equation(X_b_train, y_train)
+
+# y_p_train = reg_normal.predict(X_b_train)
+# y_p_test = reg_normal.predict(X_b_test)
 
 # error_train = (1 / n_samples) * np.sum((y_p_train - y_train) ** 2)
 # error_test = (1 / n_samples_test) * np.sum((y_p_test - y_test) ** 2)
 
 # print(f"Error on training set: {np.round(error_train, 4)}")
-# print(f"Error on test set: {np.round(error_test)}")
+# print(f"Error on test set: {np.round(error_test, 4)}")
 
-# To compute the parameters using the normal equation, we add a bias value of 1 to each input example
-X_b_train = np.c_[np.ones((n_samples)), X_train]
-X_b_test = np.c_[np.ones((n_samples_test)), X_test]
-
-reg_normal = LinearRegression()
-w_trained = reg_normal.train_normal_equation(X_b_train, y_train)
-
-y_p_train = reg_normal.predict(X_b_train)
-y_p_test = reg_normal.predict(X_b_test)
-
-error_train = (1 / n_samples) * np.sum((y_p_train - y_train) ** 2)
-error_test = (1 / n_samples_test) * np.sum((y_p_test - y_test) ** 2)
-
-print(f"Error on training set: {np.round(error_train, 4)}")
-print(f"Error on test set: {np.round(error_test, 4)}")
 
 # Plot the test predictions
-
-
 fig = plt.figure(figsize=(8, 6))
 plt.scatter(X_train, y_train)
 plt.scatter(X_test, y_p_test)

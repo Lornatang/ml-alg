@@ -1,13 +1,15 @@
 # ML Alogorithm
 
-1. Linear Regression
-2. Logistic
-3. Regression
-4. Decision Tree
-5. SVM
-6. Naive Bayes
-7. KNN
-8. K-means
-9. Random Forest
-10. Dimensionality Reduction Algorithms
-11. Gradient Boost and Adaboost
+1. Linear regression algorithm
+
+2. Logistic regression algorithm
+
+3. perceptron
+
+4. K nearest neighbor algorithm
+
+5. K-means clustering algorithm
+
+6. Neural network with single hidden layer
+
+7. Polynomial Logistic regression algorithmt
